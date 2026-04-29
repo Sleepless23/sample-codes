@@ -1,78 +1,81 @@
 # Simple CHaracter and Enemy Creation
 import random
 
-#Player
-player_name = "henry"
-player_hp = 100
-player_mp = 50
-player_atk = 10
-player_speed = 5
+#player
+player_hp = f"\033[0;32m100\033[0m"
+atk = 15
+weapons = ["sword", "axe"]
+weapon = "sword"
+#monster
+monster_hp = 30
+monster_atk = random.randint(5, 10)
+monster_drop = "dagger"
 
-#Enemy
-monster = "goblin"
-monster_hp = 150
-monster_atk = 5
-monster_speed = 5
+def player_atk(enemy_hp, atk):
+    
+    print(f"\033[0;31mYou dealt {atk} damage to the enemy!\033[0m")
+    return enemy_hp - atk
 
-# monster_hp - player_atk
+def enemy_atk(player_hp, atk):
+    
+    print(f"The monster dealt {atk} damage to you!")
+    
+    return player_hp - atk
 
-def player_attack():
+def change_weapon():
     
-    global monster_hp 
-    monster_hp -= player_atk
-
-    print(f"The opponent suffered {player_atk} damage")
-    print(f"THe opponent's hp is now {monster_hp}")
-    
-def monster_attack():
-    
-    pass
-
-#speed > opponent, high speed = high success,  random number = ?
-# if monster_speed == 5, player_speed == 10, >=
-# monster_speed - player_speed
-# chance of escape is based on the gap of the speed between the player and the monster
-
-def player_escape():
-    
-    #Luck Chance to Escape 20%
-    base_chance = 0.2
-    
-    bonus_per_gap = (player_speed - monster_speed) * 0.05
-    
-    escape_chance = base_chance + bonus_per_gap
-    
-    if escape_chance < 0.1:
-        escape_chance = 0.1
-    
-    if escape_chance > 0.9:
+    for num, weapon in enumerate(weapons, 1):
         
-        escape_chance = 0.9
+        print(f"{num}. {weapon}")
     
-    chance_number = random.random()
+    weapons_choice = int(input("Choose weapon: ")) - 1
     
-    if chance_number < escape_chance:
-        print("Successfully Escaped")
+    return weapons_choice
+
+def display_stats():
     
+    print(f"\033[1mHP: {player_hp}")
+    print("Available Weapons")
+    for weapon in weapons:
+        
+        print(weapon, "\033[0m")
+        
+menu = ["Attack", "Change Weapon", "Run", "Exit"]
+
+while True:
+    
+    display_stats()
+    print("Welcome to the Game!")
+    print("Defeat the enemy to win")
+    print("Choose Action")
+    for num, choice in enumerate(menu, 1):
+        
+        print(f"{num}. {choice}")
+    
+    action = input("> ")
+    
+    if action == "1":
+        
+        monster_hp = player_atk(monster_hp, atk)
+        if monster_hp <= 0:
+        
+            weapons.append(monster_drop)
+            print(f"You have defeated the monster and you acquired {monster_drop}")
+        
+    elif action == "2":
+        
+        weapon = weapons[change_weapon()]
+        
+        print(weapon)
+        
     else:
-        print()
-
-
-#Social Media
-
-username = "Gayl" #variable
-post = "Bundok"
-likes = 12
-
-print(likes)
-
-def like_button():
-    
-    global likes 
-    likes += 1
-    
-    print("You liked this post!")
+        
+        print("You ran away!")
     
     
-like_button()
-print(f"Your likes is now {likes}")
+        
+    player_hp = enemy_atk(player_hp, monster_atk)
+    if player_hp <= 0:
+        print("You have defeated")
+        break
+    

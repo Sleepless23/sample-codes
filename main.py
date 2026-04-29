@@ -83,4 +83,30 @@ stats = [character_name, level, hp, mp]
 
 #String formatting
 
-#
+def display_UI():
+    
+    print("Welcome to Dungfeon Crawler Game")
+    print("1. Play")
+    print("2. Exit")
+
+
+
+
+
+
+while True:
+    
+    display_UI()
+    choice = input("Select your action: ")
+    
+    while True:
+        if choice == "1":
+            
+            print("You are now playing the game")
+            continue
+        else:
+            
+            print("You've quit the game")
+            break
+    
+    break
