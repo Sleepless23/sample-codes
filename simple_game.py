@@ -1,15 +1,30 @@
 # Simple CHaracter and Enemy Creation
 import random
 
-#player
-player_hp = f"\033[0;32m100\033[0m"
-atk = 15
-weapons = ["sword", "axe"]
-weapon = "sword"
-#monster
-monster_hp = 30
-monster_atk = random.randint(5, 10)
-monster_drop = "dagger"
+monsters = [
+    
+    ("Goblin", 5, 20),
+    ("Slime", 3, 10),
+    ("Troll", 15, 30)
+    
+]
+print(monsters[1])
+
+player = {
+    
+    "name" : "Player1",
+    "atk" : 10,
+    "hp" : 20
+    
+}
+
+def spawn_monster(monsters):
+    monster = random.choice(monsters)
+    
+    return [monster[0], monster[1], monster[2]]
+  
+
+    
 
 def player_atk(enemy_hp, atk):
     
@@ -21,61 +36,29 @@ def enemy_atk(player_hp, atk):
     print(f"The monster dealt {atk} damage to you!")
     
     return player_hp - atk
-
-def change_weapon():
     
-    for num, weapon in enumerate(weapons, 1):
-        
-        print(f"{num}. {weapon}")
-    
-    weapons_choice = int(input("Choose weapon: ")) - 1
-    
-    return weapons_choice
-
-def display_stats():
-    
-    print(f"\033[1mHP: {player_hp}")
-    print("Available Weapons")
-    for weapon in weapons:
-        
-        print(weapon, "\033[0m")
-        
 menu = ["Attack", "Change Weapon", "Run", "Exit"]
 
-while True:
+# while True:
     
-    display_stats()
-    print("Welcome to the Game!")
-    print("Defeat the enemy to win")
-    print("Choose Action")
-    for num, choice in enumerate(menu, 1):
+#     # print("Welcome to the Game!")
+#     # print("Defeat the enemy to win")
+#     # print("Choose Action")
+#     # for num, choice in enumerate(menu, 1):
         
-        print(f"{num}. {choice}")
+#     #     print(f"{num}. {choice}")
     
-    action = input("> ")
-    
-    if action == "1":
-        
-        monster_hp = player_atk(monster_hp, atk)
-        if monster_hp <= 0:
-        
-            weapons.append(monster_drop)
-            print(f"You have defeated the monster and you acquired {monster_drop}")
-        
-    elif action == "2":
-        
-        weapon = weapons[change_weapon()]
-        
-        print(weapon)
-        
-    else:
-        
-        print("You ran away!")
+#     # action = input("> ")
     
     
-        
-    player_hp = enemy_atk(player_hp, monster_atk)
-    if player_hp <= 0:
-        print("You have defeated")
-        break
-    
+print("Youa re in Dungeon Room 1")
+monster_name, monster_atk, monster_hp = spawn_monster(monsters)
+print(type(spawn_monster(monsters)))
+print(f"You have encountered {monster_name}")
+#player attacked the monster
+
+print(monster_hp)
+
+print(f"You attacked the {monster_name} and inflicted 3 damage")
+monster_hp -= 3
+print(monster_hp)
