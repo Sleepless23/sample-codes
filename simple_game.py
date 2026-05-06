@@ -1,64 +1,52 @@
-# Simple CHaracter and Enemy Creation
-import random
+import attack_system
+from monsters import spawn_monster
 
-monsters = [
-    
-    ("Goblin", 5, 20),
-    ("Slime", 3, 10),
-    ("Troll", 15, 30)
-    
-]
-print(monsters[1])
-
+name = input("What would be your player name?")
 player = {
     
-    "name" : "Player1",
-    "atk" : 10,
-    "hp" : 20
+    "name": name.capitalize(),
+    "atk": 3,
+    "hp" : 5
     
 }
 
-def spawn_monster(monsters):
-    monster = random.choice(monsters)
-    
-    return [monster[0], monster[1], monster[2]]
-  
+menu = ["1. Attack", "2. Run"]
 
-    
+print(f"Welcome to the Dungeon! {player['name']}")
 
-def player_atk(enemy_hp, atk):
-    
-    print(f"\033[0;31mYou dealt {atk} damage to the enemy!\033[0m")
-    return enemy_hp - atk
 
-def enemy_atk(player_hp, atk):
+def display_menu():
     
-    print(f"The monster dealt {atk} damage to you!")
-    
-    return player_hp - atk
-    
-menu = ["Attack", "Change Weapon", "Run", "Exit"]
-
-# while True:
-    
-#     # print("Welcome to the Game!")
-#     # print("Defeat the enemy to win")
-#     # print("Choose Action")
-#     # for num, choice in enumerate(menu, 1):
+    #kwrd #iterator_var #iterable, ranges  
+    for menu_item in menu:
         
-#     #     print(f"{num}. {choice}")
+        print(menu_item)
     
-#     # action = input("> ")
+#keyword #condition
+while True:
     
-    
-print("Youa re in Dungeon Room 1")
-monster_name, monster_atk, monster_hp = spawn_monster(monsters)
-print(type(spawn_monster(monsters)))
-print(f"You have encountered {monster_name}")
-#player attacked the monster
+    monst_name, monst_atk, monst_hp = spawn_monster()
+    print(f"You have encountered a {monst_name}")
+    display_menu()
+    action = input("Please select your action: ")
+    if action == "1":
 
-print(monster_hp)
-
-print(f"You attacked the {monster_name} and inflicted 3 damage")
-monster_hp -= 3
-print(monster_hp)
+        monster_hp = attack_system.damage_monster(monst_hp, player["atk"])
+        
+        if monster_hp <= 0:
+        
+            print(f"You have defeated the monster")
+            
+        else:
+            
+            player["hp"] = attack_system.damage_player(player["hp"], monst_atk)
+            print(f"You have now {player["hp"]} HP")
+            if player["hp"] <= 0:
+            
+                print("You died")
+                break
+                
+    else:
+        print("You ran away, coward")
+    
+        

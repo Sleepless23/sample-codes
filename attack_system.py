@@ -1,10 +1,15 @@
-def player_attack():
     
-    pass
-
-def monster_attack():
+def damage_monster(hp: int, atk: int):
     
-    print("You have been attacked")
+    damage = hp - atk
+    print(f"You attacked the monster for {atk} damage")
+    return damage
+    
+def damage_player(hp, atk):
+    
+    damage = hp - atk
+    print(f"The monster counter attacked for {atk} damage!")
+    return damage
 
 if __name__ == "__main__":
     

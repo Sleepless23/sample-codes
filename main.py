@@ -90,23 +90,27 @@ def display_UI():
     print("2. Exit")
 
 
-
-
-
-
-while True:
+# while True:
     
-    display_UI()
-    choice = input("Select your action: ")
+#     display_UI()
+#     choice = input("Select your action: ")
     
-    while True:
-        if choice == "1":
+#     while True:
+#         if choice == "1":
             
-            print("You are now playing the game")
-            continue
-        else:
+#             print("You are now playing the game")
+#             continue
+#         else:
             
-            print("You've quit the game")
-            break
+#             print("You've quit the game")
+#             break
     
-    break
+#     break
+
+def value_less():
+    
+    num = 12
+    print("hello")
+    return num
+
+print(value_less())
